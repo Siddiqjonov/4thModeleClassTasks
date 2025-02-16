@@ -40,6 +40,10 @@ public class CommentController : ControllerBase
     public async Task<CommentGetDto> GetCommentById(long id)
     {
         var comment = await CommentService.GetByIdAsync(id);
+<<<<<<< HEAD
         return comment; 
+=======
+        return comment;
+>>>>>>> 44c4b0fe05228009f74ea3ba5af67b73e78cc369
     }
 }
