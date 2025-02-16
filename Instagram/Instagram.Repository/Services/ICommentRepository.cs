@@ -6,5 +6,7 @@ public interface ICommentRepository
 {
     Task<long> AddCommentAsync(Comment comment);
     Task<Comment> GetCommentByIdAsync(long id);
-    Task<List<Comment>> GetAllComments();
+    Task<List<Comment>> GetAllCommentsAsync();
+    Task DeleteCommentAsync(long id);
+    Task UpdateCommentAsync(Comment comment);
 }

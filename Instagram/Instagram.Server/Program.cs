@@ -18,16 +18,14 @@ namespace Instagram.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-
+            builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
             builder.ConfigureDatabase();
 
-            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-            builder.Services.AddScoped<ICommentService, CommentService>();
-
             var app = builder.Build();
 
-            app.UseCors("AllowAll");
+            //app.UseCors("AllowAll");
 
 
             // Configure the HTTP request pipeline.

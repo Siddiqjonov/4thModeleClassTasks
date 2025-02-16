@@ -10,7 +10,7 @@ namespace Instagram.Server.Controllers;
 [ApiController]
 public class CommentController : ControllerBase
 {
-    private readonly ICommentService CommentService;
+    private ICommentService CommentService;
 
     public CommentController(ICommentService commentService)
     {
@@ -25,5 +25,21 @@ public class CommentController : ControllerBase
     public async Task<List<CommentGetDto>> GetAllComment()
     {
         return await CommentService.GetAllAsync();
+    }
+    [HttpDelete("delete")]
+    public async Task DeleteComment(long id)
+    {
+        await CommentService.DeleteAsync(id);
+    }
+    [HttpPut("update")]
+    public async Task UpdateComment(UpdateCommentDto updateCommentDto)
+        {
+        await CommentService.UpdateAsync(updateCommentDto);
+    }
+    [HttpGet("getById")]
+    public async Task<CommentGetDto> GetCommentById(long id)
+    {
+        var comment = await CommentService.GetByIdAsync(id);
+        return comment; 
     }
 }
