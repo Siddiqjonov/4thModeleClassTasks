@@ -25,7 +25,14 @@ public class CommentRepository : ICommentRepository
         return comment.CommentId;
     }
 
-    public async Task<List<Comment>> GetAllComments()
+    public async Task DeleteCommentAsync(long id)
+    {
+        var commentFromDb = await GetCommentByIdAsync(id);
+        MainContext.Comments.Remove(commentFromDb);
+        await MainContext.SaveChangesAsync();
+    }
+
+    public async Task<List<Comment>> GetAllCommentsAsync()
     {
         var comments = await MainContext.Comments.ToListAsync();
         return comments;
@@ -34,5 +41,14 @@ public class CommentRepository : ICommentRepository
     public async Task<Comment> GetCommentByIdAsync(long id)
     {
         return await MainContext.Comments.FirstOrDefaultAsync(c => c.CommentId == id) ?? throw new NullReferenceException();
+    }
+
+    public async Task UpdateCommentAsync(Comment comment)
+    {
+        //await GetCommentByIdAsync(comment.CommentId);
+        var commentFromDb = MainContext.Comments.Find(comment.CommentId) ;
+        commentFromDb.Body = comment.Body;
+        //var index = MainContext.Comments.FirstOrDefaultAsync(c => c.CommentId == comment.CommentId);
+        await MainContext.SaveChangesAsync(); 
     }
 }
